@@ -1,0 +1,51 @@
+# 環境変数
+.env
+
+# 機密情報（B-CASキー）
+bcas_keys/
+bcas_keys
+
+# EPGStation設定ファイル（テンプレートから生成されるもの）
+epgstation/config/config.yml
+epgstation/config/enc.js
+epgstation/config/backup.json
+epgstation/config/epgUpdaterLogConfig.yml
+epgstation/config/operatorLogConfig.yml
+epgstation/config/serviceLogConfig.yml
+
+# EPGStationデータ
+epgstation/data/
+epgstation/logs/
+epgstation/recorded/
+epgstation/thumbnail/
+
+# Mirakurun設定ファイル（環境依存）
+mirakurun/conf/channels.yml
+mirakurun/conf/tuners.yml
+mirakurun/conf/server.yml
+
+# Mirakurunデータ
+mirakurun/data/
+mirakurun/run/
+mirakurun/opt/
+
+# 監視システムデータ
+monitor/grafana/
+monitor/prometheus-data/
+
+# Dockerボリュームデータ
+mysql/
+
+# ログファイル
+*.log
+
+# OS関連
+.DS_Store
+Thumbs.db
+
+# エディタ関連
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
