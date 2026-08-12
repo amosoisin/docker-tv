@@ -16,10 +16,10 @@ services:
         target: /opt
       - type: bind
         source: ./mirakurun/conf
-        target:  /app-config
+        target: /app-config
       - type: bind
-        source: ./data
-        target:  /app-data
+        source: ./mirakurun/data
+        target: /app-data
     environment:
       TZ: "Asia/Tokyo"
       BCAS_KEYS_FILE: /src/libyakisoba/src/bcas_keys
