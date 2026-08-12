@@ -1,0 +1,96 @@
+#!/bin/sh
+
+APT_INSTALL="apt install -y --no-install-recommends"
+
+apt_update() {
+    apt-get -y update
+}
+
+install_depends() {
+    ${APT_INSTALL} \
+        autoconf \
+        cmake \
+        libpcsclite1 \
+        libpcsclite-dev \
+        pkg-config \
+        git \
+        automake \
+        libtool
+}
+
+install_libyakisoba() {
+    ## libyakisoba
+    git clone --depth=1 https://github.com/tsunoda14/libyakisoba.git /src/libyakisoba
+    cd /src/libyakisoba || return 1
+    autoreconf -i
+    mkdir build
+    cd build || return 1
+    ../configure
+    make
+    make install
+    return 0
+}
+
+install_libsobacas() {
+    ## libsobacas
+    git clone --depth=1 https://github.com/tsunoda14/libsobacas.git /src/libsobacas
+    cd /src/libsobacas || return 1
+    autoreconf -i
+    mkdir build
+    cd build || return 1
+    ../configure
+    make
+    make install
+    return 0
+}
+
+install_libaribb25() {
+    # libaribb25
+    git clone --depth=1 https://github.com/tsukumijima/libaribb25.git /src/libaribb25
+    cd /src/libaribb25 || return 1
+    cmake . -B build -DWITH_PCSC_PACKAGE=NO -DWITH_PCSC_LIBRARY=sobacas
+    make -C build
+    make -C build install
+    return 0
+}
+
+install_recpt1() {
+    # recpt1
+    if (type "recpt1" > /dev/null 2>&1); then
+        return 0
+    fi
+
+    git clone --depth=1 https://github.com/stz2012/recpt1.git /src/recpt1
+    cd /src/recpt1/recpt1 || return 1
+    ./autogen.sh
+    ./configure --enable-b25
+    make
+    make install
+    return 0
+}
+
+check_bcas_exists() {
+    if [ ! -f "${BCAS_KEYS_FILE}" ]; then
+        return 1
+    fi
+    return 0
+}
+
+
+# 初期セットアップ
+if check_bcas_exists; then
+    # bcasインストール済み
+    exit 0
+fi
+
+# 依存関係をインストール
+apt_update
+install_depends
+
+# アプリを手動インストール
+install_libyakisoba
+install_libsobacas
+install_libaribb25
+install_recpt1
+
+exit 0

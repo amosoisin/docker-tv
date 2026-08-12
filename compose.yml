@@ -2,10 +2,7 @@ version: '3.9'
 
 services:
   mirakurun:
-    # image: chinachu/mirakurun
-    image: mirakurun
-    build:
-      context: ./mirakurun/
+    image: chinachu/mirakurun:${MIRAKURUN_IMAGE_TAG:-latest}
     container_name: mirakurun
     cap_add:
       - SYS_ADMIN
@@ -14,6 +11,9 @@ services:
       - "40772:40772"
       - "9229:9229"
     volumes:
+      - type: bind
+        source: ./mirakurun/opt
+        target: /opt
       - type: bind
         source: ./mirakurun/conf
         target:  /app-config
