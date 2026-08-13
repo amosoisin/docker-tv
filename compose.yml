@@ -20,12 +20,9 @@ services:
       - type: bind
         source: ./mirakurun/data
         target: /app-data
-      - type: bind
-        source: ./mirakurun/bcas_keys
-        target: /src/libyakisoba/src/bcas_keys
     environment:
       TZ: "Asia/Tokyo"
-      BCAS_KEYS_FILE: /src/libyakisoba/src/bcas_keys
+      BCAS_KEYS_FILE: /opt/bcas_keys
     restart: always
     logging:
       driver: json-file
