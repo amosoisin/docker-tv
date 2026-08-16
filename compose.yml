@@ -1,5 +1,8 @@
 version: '3.9'
 
+include:
+  - ./konomitv/KonomiTV/docker-compose.yaml
+
 services:
   mirakurun:
     image: chinachu/mirakurun:${MIRAKURUN_IMAGE_TAG:-latest}

@@ -1,0 +1,3 @@
+[submodule "konomitv/KonomiTV"]
+	path = konomitv/KonomiTV
+	url = https://github.com/tsukumijima/KonomiTV.git
