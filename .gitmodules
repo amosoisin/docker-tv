@@ -1,3 +1,6 @@
 [submodule "konomitv/KonomiTV"]
 	path = konomitv/KonomiTV
 	url = https://github.com/tsukumijima/KonomiTV.git
+[submodule "edcb/EDCB-Wine"]
+	path = edcb/EDCB-Wine
+	url = https://github.com/tsukumijima/EDCB-Wine.git
