@@ -2,6 +2,7 @@ version: '3.9'
 
 include:
   - ./konomitv/KonomiTV/docker-compose.yaml
+  - ./edcb/EDCB-Wine/docker-compose.yaml
 
 services:
   mirakurun:
