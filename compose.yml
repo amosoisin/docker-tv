@@ -42,3 +42,60 @@ services:
       - /dev/px4video5
       - /dev/px4video6
       - /dev/px4video7
+
+  epgstation:
+    image: epgstation
+    container_name: epgstation
+    build:
+      context: "./epgstation"
+      dockerfile: "debian.Dockerfile"
+    volumes:
+      - type: bind
+        source: ./epgstation/config
+        target: /app/config
+      - type: bind
+        source: ${EPGSTATION_DIR}/data
+        target: /app/data
+      - type: bind
+        source: ${EPGSTATION_DIR}/thumbnail
+        target: /app/thumbnail
+      - type: bind
+        source: ${EPGSTATION_DIR}/logs
+        target: /app/logs
+      - type: bind
+        source: ${RECORD_DIR}
+        target: /app/recorded
+    environment:
+      TZ: "Asia/Tokyo"
+    depends_on:
+      - mysql
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+    restart: always
+
+  mysql:
+    image: mariadb:10.5
+    container_name: mariadb
+      #image: mysql:8.0 # 囲み文字を使用する場合
+    volumes:
+      - mysql-db:/var/lib/mysql
+    environment:
+      MYSQL_USER: epgstation
+      MYSQL_PASSWORD: epgstation
+      MYSQL_ROOT_PASSWORD: epgstation
+      MYSQL_DATABASE: epgstation
+      TZ: "Asia/Tokyo"
+      command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
+        #command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_as_ci --performance-schema=false --expire_logs_days=1 --default-authentication-plugin=mysql_native_password # for myql
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - "3306:3306"
+
+volumes:
+    mysql-db:
+        driver: local
