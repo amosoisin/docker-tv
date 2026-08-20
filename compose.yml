@@ -54,16 +54,16 @@ services:
         source: ./epgstation/config
         target: /app/config
       - type: bind
-        source: ${EPGSTATION_DIR}/data
+        source: ./epgstation/data
         target: /app/data
       - type: bind
-        source: ${EPGSTATION_DIR}/thumbnail
+        source: ./epgstation/thumbnail
         target: /app/thumbnail
       - type: bind
-        source: ${EPGSTATION_DIR}/logs
+        source: ./epgstation/logs
         target: /app/logs
       - type: bind
-        source: ${RECORD_DIR}
+        source: /mnt/hdd/TV/Record/
         target: /app/recorded
     environment:
       TZ: "Asia/Tokyo"
